@@ -1,0 +1,107 @@
+{% extends "base.html"  %}
+{% load static %}
+{% block link %}
+<link rel="shortcut icon" href="{% static "favicon.ico" %}">
+<link rel="stylesheet" href="{% static "css/common.css" %}">
+<link rel="stylesheet" href="{% static "css/ranking.css" %}">
+{% endblock %}
+
+{% block body %}
+<body>
+    <div class="header">
+        <a href="/" class="logo"><img src="{% static "image/logo.png" %}"></a>
+        <div class="search-box">
+            <form id="searchForm" action="{% url 'search' 1 %}" method="post">
+            {% csrf_token %}
+                <div class="search-keyword">
+                    <input name="kword" type="text" class="keyword" maxlength="120">
+                </div>
+                <input id="subSerch" type="submit" class="search-button" value="搜 索" />
+            </form>
+            <div id="suggest" class="search-suggest"></div>
+            <div class="search-hot-words">
+                {% for s in searchs  %}
+                <a target="play" href="{% url 'play' s.song.id %}" >{{ s.song.name }}</a>
+                {% endfor  %}
+            </div>
+        </div>
+    </div><!--end header-->
+    <div class="nav-box">
+		<div class="nav-box-inner">
+			<ul class="nav clearfix">
+                <li><a href="{% url 'index' %}">首页</a></li>
+				<li><a href="{% url 'ranking' %}">歌曲排行</a></li>
+	    	    <li><a href="{% url 'home' 1 %}" target="_blank">用户中心</a></li>
+			</ul>
+		</div>
+	</div><!--end nav-box-->
+    <div class="wrapper clearfix">
+    <!-- 左侧列表 -->
+    <div class="side">
+  		<!-- 子类分类排行导航 -->
+  		<div class="side-nav">
+			<div class="nav-head">
+				<a href="{% url 'ranking' %}">所有歌曲分类</a>
+			</div>
+            <ul id="sideNav" class="cate-item">
+            {% for l in labels %}
+                <li class="computer">
+                <div class="main-cate">
+                    <a href="{% url 'ranking' %}?type={{ l.id }}" class="main-title">{{ l.name }}</a>
+                </div>
+                </li>
+            {% endfor  %}
+            </ul>
+        </div>
+  	</div><!-- 左侧列表 end -->
+
+	<div class="main">
+		<div class="main-head-box clearfix">
+			<div class="main-head"><h1>歌曲排行榜</h1></div>
+		</div>
+		<table class="rank-list-table">
+			<tr>
+				<th class="cell-1">排名</th>
+				<th class="cell-2">封面</th>
+				<th class="cell-3">歌名</th>
+				<th class="cell-4">专辑</th>
+				<th class="cell-5">类型</th>
+				<th class="cell-6">下载量</th>
+                <th class="cell-6">播放量</th>
+			</tr>
+            {% for d in dynamics  %}
+                <tr>
+                    {%if forloop.counter < 4  %}
+                    <td><span class="n1">{{forloop.counter}}</span></td>
+                    {%else %}
+                    <td><span class="n2">{{forloop.counter}}</span></td>
+                    {%endif %}
+                    <td>
+                    <a href="{% url 'play' d.song.id %}"  class="pic" target="play">
+                        <img src="{{ d.song.img.url }}"  width="80" height="80">
+                    </a>
+                    </td>
+                    <td class="name-cell">
+                    <h3><a href="{% url 'play' d.song.id %}" target="play" >{{d.song.name}}</a></h3>
+                    <div class="desc">
+                    <a href="javascript:;" class="type" >{{d.song.singer}}</a>
+                    </div>
+                    </td>
+                    <td>
+                    <div style="text-align:center;">{{d.song.album}}</div>
+                    </td>
+                    <td>
+                    <div style="text-align:center;">{{d.song.label}}</div>
+                    </td>
+                    <td>
+                    <div style="text-align:center;">{{d.download}}</div>
+                    </td>
+                    <td class="num-cell">{{d.plays}}</td>
+                </tr>
+            {% endfor  %}
+        </table>
+	</div>
+    </div>
+	<script data-main="{% static "js/ranking.js" %}" src="{% static "js/require.js" %}"></script>
+</body>
+{% endblock  %}

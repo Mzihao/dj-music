@@ -1,0 +1,126 @@
+{% extends "base.html"  %}
+{% load static %}
+
+{% block link %}
+<link rel="shortcut icon" href="{% static "favicon.ico" %}">
+<link rel="stylesheet" href="{% static "css/common.css" %}">
+<link rel="stylesheet" href="{% static "css/comment.css" %}">
+{% endblock %}
+
+{% block body  %}
+<body class="review">
+<div class="header">
+<a href="/" class="logo"><img src="{% static "image/logo.png" %}"></a>
+<div class="search-box">
+    <form id="searchForm" action="{% url 'search' 1 %}" method="post">
+        {% csrf_token %}
+        <div class="search-keyword">
+            <input id="kword" name="kword" type="text" class="keyword" maxlength="120">
+        </div>
+        <input id="subSerch" type="submit" class="search-button" value="搜 索"/>
+    </form>
+    <div id="suggest" class="search-suggest"></div>
+    <div class="search-hot-words">
+        {% for s in searchs %}
+            <a target="play" href="{% url 'play' s.song.id %}" >{{ s.song.name }}</a>
+        {% endfor  %}
+    </div>
+</div>
+</div><!--end header-->
+<div class="nav-box">
+<div class="nav-box-inner">
+    <ul class="nav clearfix">
+        <li><a href="{% url 'index' %}">首页</a></li>
+        <li><a href="{% url 'ranking' %}" target="_blank">歌曲排行</a></li>
+        <li><a href="{% url 'home' 1 %}" target="_blank">用户中心</a></li>
+    </ul>
+</div>
+</div><!--end nav-box-->
+<div class="wrapper">
+<div class="breadcrumb">
+    <a href="/">首页</a> &gt;
+            <a href="{% url 'play' id %}" target="_self">{{songs.name}}</a> &gt;
+    <span>点评</span>
+</div>
+<div class="page-title" id="currentSong"></div>
+</div>
+<div class="wrapper">
+<div class="section">
+    <div class="section-header"><h3 class="section-title">网友点评</h3></div>
+    <div class="section-content comments-score-new review-comments-score clearfix">
+        <div class="clearfix">
+
+        <!--点评框-->
+            <div class="comments-box">
+            <div class="comments-box-title">我要点评<<{{ songs.name }}>></div>
+            <div class="comments-default-score clearfix"></div>
+            <form action="" method="post" id="usrform">
+                {% csrf_token %}
+                <div class="writebox">
+                    <textarea name="comment" form="usrform"></textarea>
+                </div>
+                <div class="comments-box-button clearfix">
+                <input type="submit" value="发布" class="_j_cc_post_entry cc-post-entry" id="scoreBtn">
+                <div data-role="user-login" class="_j_cc_post_login"></div>
+                </div>
+                <div id="scoreTips2" style="padding-top:10px;"></div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="wrapper clearfix">
+<div class="content">
+<div id="J_CommentList">
+<ul class="comment-list">
+    {% for item in pages.object_list  %}
+    <li class="comment-item ">
+        <div class="comments-user">
+        <span class="face">
+        <img src="{% static "image/user.jpg" %}" width="60" height="60">
+        </span>
+        </div>
+        <div class="comments-list-content">
+        <div class="single-score clearfix">
+            <span class="date">{{ item.date }}</span>
+            <div><span class="score">{{ item.user }}</span></div>
+        </div>
+        <!--comments-content-->
+        <div class="comments-content">
+            <div class="J_CommentContent comment-height-limit">
+                <div class="content-inner">
+                    <div class="comments-words">
+                        <p>{{ item.text }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </li>
+    {% endfor  %}
+</ul>
+<div class="page-box">
+    <div class="pagebar" id="pageBar">
+        {% if pages.has_previous %}
+            <a href="{% url 'comment' id %}?page={{ pages.previous_page_number }}" class="prev" target="_self"><i></i>上一页</a>
+        {% endif %}
+        {% for page in pages.paginator.page_range %}
+            {% if pages.number == page %}
+                <span class="sel">{{ page }}</span>
+            {% else %}
+                <a href="{% url 'comment' id %}?page={{ page }}" target="_self">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if pages.has_next %}
+            <a href="{% url 'comment' id %}?page={{ pages.next_page_number }}" class="next" target="_self"><i></i>下一页</a>
+        {% endif %}
+    </div>
+</div>
+</div>
+</div>
+</div>
+</body>
+{% endblock  %}
