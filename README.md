@@ -30,6 +30,7 @@ python manage.py runserver
 
 ## docker run
 docker build -t music:latest .
+
 docker run -it -rm -p 8000:8000 music
 
 ## 运行图
