@@ -33,6 +33,9 @@ docker build -t music:latest .
 
 docker run -it -rm -p 8000:8000 music
 
+## 预览
+127.0.0.1：8000
+
 ## 运行图
 ![demo1](https://github.com/Mzihao/dj-music/blob/master/static/image/demo1.png)
 
