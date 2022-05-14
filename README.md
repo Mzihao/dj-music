@@ -36,6 +36,9 @@ docker run -it -rm -p 8000:8000 music
 ## 预览
 127.0.0.1：8000
 
+## 在线预览
+http://119.23.40.47:8000/
+
 ## 运行图
 ![demo1](https://github.com/Mzihao/dj-music/blob/master/static/image/demo1.png)
 
