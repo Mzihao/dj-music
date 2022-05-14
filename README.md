@@ -9,6 +9,22 @@ python 3.9
 ## 安装库
 pip install -r requirement.txt
 
+## mysql连接
+```python
+music/setting.py
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'music_db',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+```
+
 ## 运行
 python manage.py runserver
 
