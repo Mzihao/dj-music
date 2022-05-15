@@ -31,7 +31,7 @@ python manage.py runserver
 ## docker run
 docker build -t music:latest .
 
-docker run -it -rm -p 8000:8000 music
+docker run -it -p 8000:8000 music
 
 ## 预览
 127.0.0.1：8000
