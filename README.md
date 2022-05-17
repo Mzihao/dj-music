@@ -26,12 +26,16 @@ DATABASES = {
 ```
 
 ## 本地运行
+```shell
 python manage.py runserver
+```
 
 ## docker run
+```shell
 docker build -t music:latest .
 
 docker run -it -p 8000:8000 music
+```
 
 ## 预览
 http://127.0.0.1:8000
