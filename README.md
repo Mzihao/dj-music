@@ -34,7 +34,7 @@ docker build -t music:latest .
 docker run -it -p 8000:8000 music
 
 ## 预览
-127.0.0.1：8000
+127.0.0.1:8000
 
 ## 在线预览
 http://119.23.40.47:8000/
