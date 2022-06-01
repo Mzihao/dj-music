@@ -27,6 +27,16 @@ DATABASES = {
 
 ## 本地运行
 ```shell
+# 创建后台管理员
+python manage.py createsuperuser 
+
+# 生成数据库迁移文件，后面指定app_name：只针对这个app生成迁移脚本（也可以指定多个）也可以不指定单个APP，生成所有APP的迁移文件。
+python manage.py makemigrations app_name
+
+# 将迁移文件内容写入数据库中，并生成数据库表
+python manage.py migrate 
+
+# 运行
 python manage.py runserver
 ```
 
