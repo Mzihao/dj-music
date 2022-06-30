@@ -60,3 +60,7 @@ http://119.23.40.47:8000/
 ![demo1](https://github.com/Mzihao/dj-music/blob/master/static/image/demo2.png)
 
 ![demo1](https://github.com/Mzihao/dj-music/blob/master/static/image/demo3.png)
+
+## 找到我
+![image](https://user-images.githubusercontent.com/69906999/176746903-e1e57208-213a-439e-9981-e19c6776bb38.png)
+
